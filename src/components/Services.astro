@@ -1,0 +1,142 @@
+---
+// Each card goes from a problem the client recognises to the work that solves it.
+// Areas come from the professional experience notes; no metrics or promises.
+const services = [
+  {
+    title: "Google isn't finding or indexing your pages",
+    text: "I run technical audits and crawling and indexing analysis to find what's stopping search engines from accessing and understanding your site, and turn the findings into a clear plan to fix it.",
+    areas: ['Technical audits', 'Crawling & indexing', 'Website architecture', 'Structured data'],
+  },
+  {
+    title: 'A migration or redesign is coming',
+    text: 'I help plan and follow website migrations so your content and its search signals carry over, and your organic visibility is protected before, during and after the launch.',
+    areas: ['Website migrations', 'Performance monitoring'],
+  },
+  {
+    title: 'SEO recommendations get stuck with developers',
+    text: 'My background in software development helps me look beyond the surface of a website, understand technical constraints and communicate SEO recommendations in a way your team can actually implement.',
+    areas: ['Web development background', 'Implementation-ready recommendations'],
+  },
+  {
+    title: 'You have data, but no clear priorities',
+    text: 'I use Google Search Console, GA4 and Data Studio to investigate performance, identify technical, content and search intent opportunities, and turn them into data-informed priorities.',
+    areas: ['Search intent research', 'Content optimization', 'Performance analysis'],
+  },
+];
+---
+
+<section id="services" class="services" aria-labelledby="services-title">
+  <div class="wrap section services__inner">
+    <div class="split">
+      <div class="stack">
+        <p class="eyebrow"><span aria-hidden="true">01 / </span>How I can help</p>
+        <h2 id="services-title" class="h2">Technical SEO consulting: how I can help</h2>
+      </div>
+      <p class="body services__intro">
+        I work on SEO projects that combine technical foundations, content strategy and data
+        analysis to improve organic visibility and support business objectives. These are the
+        problems I help solve most often.
+      </p>
+    </div>
+
+    <div class="services__grid">
+      {
+        services.map((service) => (
+          <article class="service">
+            <h3 class="service__title">{service.title}</h3>
+            <p class="service__text">{service.text}</p>
+            <ul class="chips" aria-label="Areas of work">
+              {service.areas.map((area) => (
+                <li>{area}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <a href="#contact" class="services__cta">
+      Tell me about your project
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .services__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .services__intro {
+    align-self: end;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  @media (max-width: 720px) {
+    .services__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color 0.2s;
+  }
+
+  .service:hover {
+    border-color: var(--accent);
+  }
+
+  .service__title {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .service__text {
+    flex-grow: 1;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-body);
+  }
+
+  .service .chips li {
+    background: var(--surface);
+  }
+
+  .services__cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .services__cta:hover {
+    color: var(--ink);
+  }
+</style>

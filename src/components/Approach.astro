@@ -1,0 +1,130 @@
+<section id="approach" class="approach-section" aria-labelledby="approach-title">
+  <div class="wrap section approach">
+    <div class="split">
+      <div class="stack">
+        <p class="eyebrow"><span aria-hidden="true">03 / </span>My approach</p>
+        <h2 id="approach-title" class="h2">My approach to technical SEO</h2>
+      </div>
+      <div class="approach__intro">
+        <p class="lead-display">
+          I approach SEO from two complementary perspectives:{' '}
+          <span class="accent">content and technology.</span>
+        </p>
+        <p class="body">
+          My work combines technical SEO, search intent research, content optimization and data
+          analysis to understand how websites perform in search and where there is room for
+          improvement.
+        </p>
+      </div>
+    </div>
+
+    <div class="perspectives">
+      <div class="perspective">
+        <p class="perspective__label">Perspective<span aria-hidden="true"> 01</span></p>
+        <h3 class="h3">Content</h3>
+        <p class="perspective__text">What people search for, and what a website offers them.</p>
+        <ul class="chips" aria-label="Content work">
+          <li>Search intent research</li>
+          <li>Content optimization</li>
+        </ul>
+      </div>
+      <div class="perspective perspective--dark">
+        <p class="perspective__label">Perspective<span aria-hidden="true"> 02</span></p>
+        <h3 class="h3">Technology</h3>
+        <p class="perspective__text">How effectively search engines can discover and understand it.</p>
+        <ul class="chips" aria-label="Technical work">
+          <li>Technical audits</li>
+          <li>Crawling &amp; indexing</li>
+          <li>Website architecture</li>
+          <li>Structured data</li>
+          <li>Migrations</li>
+          <li>Performance monitoring</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split approach__close">
+      <p class="body">
+        At an SEO agency, I put this approach into practice every day, using tools such as Google
+        Search Console, GA4 and Data Studio to turn data into actionable insights.
+      </p>
+      <p class="quote">
+        My goal is to connect what people search for, what a website offers and how effectively
+        search engines can discover and understand it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .approach-section {
+    border-top: 1px solid var(--line);
+  }
+
+  .approach {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .approach__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .perspectives {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .perspective {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .perspective__label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+
+  .perspective__text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+
+  .perspective--dark {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .perspective--dark .perspective__label {
+    color: var(--line-strong);
+  }
+
+  .perspective--dark .perspective__text {
+    color: var(--line);
+  }
+
+  .perspective--dark .chips li {
+    background: transparent;
+    border-color: var(--line-dark);
+  }
+
+  .approach__close {
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '#services', label: 'Services' },
+  { href: '#work', label: 'Work' },
+  { href: '#approach', label: 'Approach' },
+  { href: '#toolkit', label: 'Toolkit' },
+  { href: '#about', label: 'About' },
+];
+---
+
+<header class="header">
+  <div class="wrap header__inner">
+    <div class="brand">
+      <Logo />
+      <span class="brand__tag">SEO · TECHNOLOGY · STRATEGY</span>
+    </div>
+    <nav aria-label="Main" class="nav">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <a href="#contact" class="btn btn--primary btn--small">Get in touch</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 88px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .brand__tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-subtle);
+  }
+
+  .nav {
+    display: flex;
+    gap: 28px;
+    font-size: 15px;
+  }
+
+  .nav a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .nav,
+    .brand__tag {
+      display: none;
+    }
+  }
+</style>

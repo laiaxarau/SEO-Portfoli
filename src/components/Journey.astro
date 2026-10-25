@@ -1,0 +1,101 @@
+---
+const steps = [
+  {
+    num: '01', label: 'Content',
+    title: 'It started with writing',
+    text: 'My journey into digital marketing started with writing, and a growing interest in how content could help websites reach the right audiences.',
+  },
+  {
+    num: '02', label: 'Code',
+    title: 'Then I learned to build',
+    text: 'I wanted to understand the code and the technical foundations of websites, and how they affect organic visibility. So I learned web development.',
+  },
+  {
+    num: '03', label: 'SEO',
+    title: 'Now I connect both',
+    text: 'Connecting the dots between what people are looking for, what a website offers and how effectively search engines can access and interpret it.',
+  },
+];
+---
+
+<section class="journey" aria-labelledby="journey-title">
+  <div class="wrap section journey__inner">
+    <div class="stack section-head">
+      <p class="eyebrow journey__eyebrow"><span aria-hidden="true">06 / </span>Journey</p>
+      <h2 id="journey-title" class="h2">From content to code, and into SEO</h2>
+    </div>
+    <ol class="steps">
+      {
+        steps.map((step, i) => (
+          <li class:list={['step', { 'step--last': i === steps.length - 1 }]}>
+            <span class="step__label">
+              <span aria-hidden="true">{step.num} · </span>
+              {step.label}
+            </span>
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__text">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .journey {
+    background: var(--secondary);
+  }
+
+  .journey__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  /* Darker orange keeps 4.5:1 contrast on the secondary background */
+  .journey__eyebrow,
+  .step__label {
+    color: var(--detail-strong);
+  }
+
+  .steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .step--last {
+    border-top-color: var(--accent);
+  }
+
+  .step__label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .step__title {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 26px;
+  }
+
+  .step__text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+</style>

@@ -1,0 +1,345 @@
+---
+import { Image } from 'astro:assets';
+import { SITE } from '../data/site';
+import seoAmbTalonsImg from '../assets/projects/seo-amb-talons.png';
+import madridImg from '../assets/projects/madrid.png';
+import frontendPortfolioImg from '../assets/projects/frontend-portfolio.jpg';
+
+// Audit phases for the terminal visual: the process only, no metrics.
+const auditSteps = [
+  { name: 'crawling', note: 'how bots discover the site' },
+  { name: 'indexing', note: 'what search engines keep' },
+  { name: 'architecture', note: 'how pages connect' },
+  { name: 'structured data', note: 'what machines understand' },
+  { name: 'search intent', note: 'what people look for' },
+  { name: 'content', note: 'what the site offers' },
+  { name: 'measurement', note: 'GSC · GA4 · Data Studio' },
+];
+
+const projects = [
+  {
+    meta: 'Independent project · SEO for women',
+    title: 'SEO amb Talons',
+    text: 'An independent initiative focused on helping women improve their online visibility through a technical, strategic and feminist approach to SEO. SEO amb Talons brings my professional knowledge into a project with its own identity, audience and purpose.',
+    link: { href: SITE.links.seoAmbTalons, label: 'Visit SEO amb Talons' },
+    image: seoAmbTalonsImg,
+    alt: 'SEO amb Talons homepage: "Posiciona el teu negoci sense perdre el teu estil", SEO for women entrepreneurs',
+  },
+  {
+    meta: 'Personal project · Astro · HTML · CSS · JavaScript',
+    title: 'Madrid: a city guide turned into a game',
+    text: 'A playful, interactive travel guide created as a surprise for a four-day trip to Madrid. Built with web technologies and AI-assisted development, the project turns trip planning into a more personal experience. It brings together creativity, user experience and my interest in building useful digital products.',
+    link: { href: SITE.links.madrid, label: 'Explore Madrid' },
+    image: madridImg,
+    alt: 'Madrid travel game cover: "Tria la teva aventura", 5–8 November, with the Madrid skyline',
+  },
+  {
+    meta: 'Personal project · Astro · Tailwind CSS · JavaScript',
+    title: 'Front-end portfolio',
+    text: 'My first portfolio as a front-end developer. It gathers the projects that started my path into code, from a WordPress site for a non-profit organization to an Astro site powered by the SpaceX API. The content is loaded from a JSON file, so the site is easy to update.',
+    link: { href: SITE.links.frontendPortfolio, label: 'Visit the portfolio' },
+    image: frontendPortfolioImg,
+    alt: 'Front-end portfolio homepage with the LAIA XARAU logo and project previews for a WordPress site and a SpaceX API site',
+  },
+];
+---
+
+<section id="work" aria-labelledby="work-title">
+  <div class="wrap section work">
+    <div class="stack section-head">
+      <p class="eyebrow"><span aria-hidden="true">02 / </span>Selected work</p>
+      <h2 id="work-title" class="h2">Selected SEO and web projects</h2>
+    </div>
+
+    <article class="card featured">
+      <div class="featured__text">
+        <p class="card__meta">Technical SEO · Strategy · Organic growth</p>
+        <h3 class="featured__title">SEO consulting</h3>
+        <p class="card__text">
+          My professional work brings together technical investigation, content strategy and
+          performance analysis. I focus on understanding the reasons behind search performance and
+          identifying practical opportunities to improve it.
+        </p>
+        <p class="featured__note">Professional experience at an SEO agency.</p>
+      </div>
+      <figure class="featured__visual terminal" aria-label="An SEO audit shown as a terminal log: crawling, indexing, architecture, structured data, search intent, content and measurement">
+        <div class="terminal__bar" aria-hidden="true">
+          <span class="terminal__dot"></span>
+          <span class="terminal__dot"></span>
+          <span class="terminal__dot"></span>
+          <span class="terminal__name">seo-audit</span>
+        </div>
+        <div class="terminal__body" aria-hidden="true">
+          <p class="terminal__cmd"><span class="terminal__prompt">$</span> seo-audit --site client.com</p>
+          <ul class="terminal__log">
+            {
+              auditSteps.map((step) => (
+                <li>
+                  <span class="terminal__check">✓</span>
+                  <span class="terminal__step">{step.name}</span>
+                  <span class="terminal__note">{step.note}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="terminal__result">
+            <span class="terminal__arrow">→</span> opportunities identified · ready to implement<span class="terminal__cursor"></span>
+          </p>
+        </div>
+      </figure>
+    </article>
+
+    <div class="projects">
+      {
+        projects.map((project) => (
+          <article class="card project">
+            <Image
+              src={project.image}
+              alt={project.alt}
+              widths={[400, 640, 800]}
+              sizes="(max-width: 720px) 100vw, 400px"
+              class="project__visual"
+            />
+            <div class="project__body">
+              <p class="card__meta">{project.meta}</p>
+              <h3 class="h3">{project.title}</h3>
+              <p class="card__text project__text">{project.text}</p>
+              <a href={project.link.href} class="card__link">
+                {project.link.label}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    transition: border-color 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--ink);
+  }
+
+  .card__meta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .card__text {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-body);
+  }
+
+  .card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .featured {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .featured__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    padding: clamp(28px, 4vw, 48px);
+  }
+
+  .featured__title {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: clamp(30px, 3.2vw, 40px);
+    line-height: 1.1;
+  }
+
+  .featured .card__text {
+    font-size: 17px;
+  }
+
+  .featured__note {
+    font-size: 15px;
+    color: var(--text-subtle);
+  }
+
+  .featured__visual {
+    min-height: 280px;
+    margin: 0;
+    background: var(--ink);
+    color: var(--text-on-dark);
+  }
+
+  .terminal {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .terminal__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .terminal__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--line-dark);
+  }
+
+  .terminal__name {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #8A8D93;
+  }
+
+  .terminal__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    flex-grow: 1;
+    padding: clamp(20px, 3vw, 32px);
+  }
+
+  .terminal__cmd {
+    color: var(--bg);
+  }
+
+  .terminal__prompt,
+  .terminal__arrow {
+    color: var(--detail-light);
+  }
+
+  .terminal__log {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .terminal__log li {
+    display: grid;
+    grid-template-columns: 18px 128px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .terminal__check {
+    color: var(--accent-light);
+  }
+
+  .terminal__step {
+    color: var(--bg);
+  }
+
+  .terminal__note {
+    color: #8A8D93;
+  }
+
+  .terminal__result {
+    color: var(--bg);
+  }
+
+  .terminal__cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    margin-left: 4px;
+    vertical-align: -2px;
+    background: var(--accent-light);
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .terminal__cursor {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .terminal__log li {
+      grid-template-columns: 18px minmax(0, 1fr);
+    }
+
+    .terminal__note {
+      grid-column: 2;
+    }
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project__visual {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1261 / 860;
+    object-fit: cover;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project__body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-grow: 1;
+    padding: 28px;
+  }
+
+  .project__text {
+    flex-grow: 1;
+  }
+
+  @media (max-width: 720px) {
+    .featured {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

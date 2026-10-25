@@ -1,0 +1,43 @@
+---
+// Brand mark carried over from the previous portfolio (Tailwind version),
+// rewritten in plain CSS and recoloured with the current accent.
+---
+
+<a href="#top" class="logo" aria-label="Laia Xarau, back to top">
+  <span class="logo__first">Laia</span>
+  <span class="logo__last">Xarau</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px;
+    padding: 6px;
+    border: 2px solid var(--accent);
+    font-family: var(--font-sans);
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .logo__first {
+    padding: 9px 14px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-weight: 500;
+  }
+
+  .logo__last {
+    padding: 9px 8px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .logo:hover .logo__last {
+    color: var(--ink);
+  }
+</style>

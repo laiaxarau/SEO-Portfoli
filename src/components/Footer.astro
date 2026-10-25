@@ -1,0 +1,28 @@
+---
+import { SITE } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span>© {year} {SITE.name} · {SITE.jobTitle}</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--line-strong);
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 28px;
+    font-size: 13px;
+  }
+</style>

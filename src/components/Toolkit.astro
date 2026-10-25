@@ -1,0 +1,234 @@
+---
+import { Image } from 'astro:assets';
+import searchConsole from '../assets/tools/search-console.svg';
+import ga4 from '../assets/tools/ga4.svg';
+import dataStudio from '../assets/tools/data-studio.svg';
+import screamingFrog from '../assets/tools/screaming-frog.png';
+import pagespeed from '../assets/tools/pagespeed.svg';
+import schemaOrg from '../assets/tools/schema-org.webp';
+import devtools from '../assets/tools/devtools.png';
+import semrush from '../assets/tools/semrush.svg';
+import ahrefs from '../assets/tools/ahrefs.svg';
+import seRanking from '../assets/tools/se-ranking.png';
+
+// Logos are greyscale by default and show their original colours on hover.
+// Tools without a logo yet fall back to `mark` (initials) in the brand colour.
+const groups = [
+  {
+    num: '01', label: 'Search & analytics',
+    title: 'Understanding search performance',
+    tools: [
+      { name: 'Search Console', logo: searchConsole },
+      { name: 'GA4', logo: ga4 },
+      { name: 'Data Studio', logo: dataStudio },
+    ],
+  },
+  {
+    num: '02', label: 'Technical SEO',
+    title: 'Looking under the hood',
+    tools: [
+      { name: 'Screaming Frog', logo: screamingFrog },
+      { name: 'PageSpeed', logo: pagespeed },
+      { name: 'Schema.org', logo: schemaOrg },
+      { name: 'DevTools', logo: devtools },
+    ],
+  },
+  {
+    num: '03', label: 'SEO research & strategy',
+    title: 'Finding opportunities',
+    tools: [
+      { name: 'Semrush', logo: semrush },
+      { name: 'Ahrefs', logo: ahrefs },
+      { name: 'SE Ranking', logo: seRanking },
+    ],
+  },
+];
+---
+
+<section id="toolkit" class="toolkit" aria-labelledby="tools-title">
+  <div class="wrap section toolkit__inner">
+    <div class="stack section-head">
+      <p class="eyebrow"><span aria-hidden="true">04 / </span>Toolkit</p>
+      <h2 id="tools-title" class="h2">The technical SEO tools behind the analysis</h2>
+      <p class="body">
+        I use them to investigate performance, identify opportunities and support data-informed
+        decisions.
+      </p>
+    </div>
+
+    <div>
+      {
+        groups.map((group) => (
+          <div class="group">
+            <div class="group__head">
+              <p class="group__label">
+                <span aria-hidden="true">{group.num} / </span>
+                {group.label}
+              </p>
+              <h3 class="group__title">{group.title}</h3>
+            </div>
+            <ul class="tools">
+              {group.tools.map((tool) => (
+                <li class="tool" style={tool.brand ? `--brand: ${tool.brand}` : undefined}>
+                  <span class:list={['tool__icon', { 'tool__icon--mark': !tool.logo }]} aria-hidden="true">
+                    {tool.logo ? (
+                      <Image src={tool.logo} alt="" width={160} class="tool__logo" />
+                    ) : (
+                      tool.mark
+                    )}
+                  </span>
+                  <span class="tool__name">{tool.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .toolkit {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .toolkit__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-block: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .group:first-child {
+    padding-top: 0;
+  }
+
+  .group:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .group__head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .group__label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+
+  .group__title {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 28px;
+  }
+
+  .tools {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 144px);
+    gap: 16px;
+  }
+
+  .tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 8px;
+  }
+
+  .tool__icon {
+    width: 112px;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #FFFFFF;
+    transition: transform 0.2s ease;
+  }
+
+  .tool__logo {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.75;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+  }
+
+  .tool__icon--mark {
+    border: 1.5px solid currentColor;
+    background: var(--bg);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-subtle);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .tool__name {
+    font-size: 15px;
+    text-align: center;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .tool:hover .tool__icon {
+    transform: translateY(-3px);
+  }
+
+  .tool:hover .tool__logo {
+    filter: none;
+    opacity: 1;
+  }
+
+  .tool:hover .tool__icon--mark {
+    color: var(--brand);
+  }
+
+  .tool:hover .tool__name {
+    color: var(--text);
+  }
+
+  @media (max-width: 720px) {
+    .tools {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tool__icon {
+      width: 96px;
+      height: 96px;
+    }
+
+    .tool__logo {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tool:hover .tool__icon {
+      transform: none;
+    }
+  }
+</style>
