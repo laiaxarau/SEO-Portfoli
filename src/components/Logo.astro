@@ -1,43 +1,39 @@
 ---
-// Brand mark carried over from the previous portfolio (Tailwind version),
-// rewritten in plain CSS and recoloured with the current accent.
+import { type Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<a href="#top" class="logo" aria-label="Laia Xarau, back to top">
+<a href="#top" class="logo" aria-label={t.a11y.logoBack}>
   <span class="logo__first">Laia</span>
   <span class="logo__last">Xarau</span>
 </a>
 
 <style>
   .logo {
-    display: inline-grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 8px;
-    padding: 6px;
-    border: 2px solid var(--accent);
-    font-family: var(--font-sans);
-    font-size: 22px;
-    line-height: 1;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     text-decoration: none;
-    text-align: center;
+    line-height: 1;
   }
 
-  .logo__first {
-    padding: 9px 14px;
-    background: var(--accent);
-    color: #FFFFFF;
-    font-weight: 500;
+  .logo__first,
+  .logo__last {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
   }
 
   .logo__last {
-    padding: 9px 8px;
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .logo:hover .logo__last {
-    color: var(--ink);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    color: var(--text-subtle);
   }
 </style>

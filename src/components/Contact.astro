@@ -1,22 +1,29 @@
 ---
 import { SITE } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = t.contact;
 ---
 
 <section id="contact" class="contact" aria-labelledby="contact-title">
   <div class="wrap contact__inner">
-    <p class="eyebrow contact__eyebrow"><span aria-hidden="true">08 / </span>Contact</p>
-    <h2 id="contact-title" class="contact__title">Let's <span class="contact__accent">talk</span></h2>
-    <p class="contact__text">
-      Interested in SEO, technical challenges or a digital project that needs a thoughtful
-      approach? I'm always open to meaningful conversations and interesting collaborations.
-    </p>
+    <p class="eyebrow contact__eyebrow"><span aria-hidden="true">08 / </span>{c.eyebrow}</p>
+    <h2 id="contact-title" class="contact__title">
+      {lang === 'ca' ? <>{c.title.replace('Parlem', '')}<span class="contact__accent">Parlem</span></> :
+       lang === 'es' ? <>{c.title.replace('Hablemos', '')}<span class="contact__accent">Hablemos</span></> :
+       <>Let's <span class="contact__accent">talk</span></>}
+    </h2>
+    <p class="contact__text">{c.text}</p>
     <div class="btn-row">
       <a href={SITE.linkedin} class="btn btn--light" rel="me">
-        Connect with me on LinkedIn
+        {c.linkedin}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
       </a>
       <a href={`mailto:${SITE.email}`} class="btn btn--outline-light">
-        Email me
+        {c.email}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
       </a>
     </div>

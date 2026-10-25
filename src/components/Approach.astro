@@ -1,57 +1,50 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const a = t.approach;
+---
+
 <section id="approach" class="approach-section" aria-labelledby="approach-title">
   <div class="wrap section approach">
     <div class="split">
       <div class="stack">
-        <p class="eyebrow"><span aria-hidden="true">03 / </span>My approach</p>
-        <h2 id="approach-title" class="h2">My approach to technical SEO</h2>
+        <p class="eyebrow"><span aria-hidden="true">03 / </span>{a.eyebrow}</p>
+        <h2 id="approach-title" class="h2">{a.title}</h2>
       </div>
       <div class="approach__intro">
         <p class="lead-display">
-          I approach SEO from two complementary perspectives:{' '}
-          <span class="accent">content and technology.</span>
+          {a.leadLine1}{' '}
+          <span class="accent">{a.leadAccent}</span>
         </p>
-        <p class="body">
-          My work combines technical SEO, search intent research, content optimization and data
-          analysis to understand how websites perform in search and where there is room for
-          improvement.
-        </p>
+        <p class="body">{a.body}</p>
       </div>
     </div>
 
     <div class="perspectives">
       <div class="perspective">
-        <p class="perspective__label">Perspective<span aria-hidden="true"> 01</span></p>
-        <h3 class="h3">Content</h3>
-        <p class="perspective__text">What people search for, and what a website offers them.</p>
-        <ul class="chips" aria-label="Content work">
-          <li>Search intent research</li>
-          <li>Content optimization</li>
+        <p class="perspective__label">{a.perspective1Label}<span aria-hidden="true"> 01</span></p>
+        <h3 class="h3">{a.perspective1Title}</h3>
+        <p class="perspective__text">{a.perspective1Text}</p>
+        <ul class="chips" aria-label={a.perspective1Title}>
+          {a.perspective1Chips.map((chip) => <li>{chip}</li>)}
         </ul>
       </div>
       <div class="perspective perspective--dark">
-        <p class="perspective__label">Perspective<span aria-hidden="true"> 02</span></p>
-        <h3 class="h3">Technology</h3>
-        <p class="perspective__text">How effectively search engines can discover and understand it.</p>
-        <ul class="chips" aria-label="Technical work">
-          <li>Technical audits</li>
-          <li>Crawling &amp; indexing</li>
-          <li>Website architecture</li>
-          <li>Structured data</li>
-          <li>Migrations</li>
-          <li>Performance monitoring</li>
+        <p class="perspective__label">{a.perspective2Label}<span aria-hidden="true"> 02</span></p>
+        <h3 class="h3">{a.perspective2Title}</h3>
+        <p class="perspective__text">{a.perspective2Text}</p>
+        <ul class="chips" aria-label={a.perspective2Title}>
+          {a.perspective2Chips.map((chip) => <li>{chip}</li>)}
         </ul>
       </div>
     </div>
 
     <div class="split approach__close">
-      <p class="body">
-        At an SEO agency, I put this approach into practice every day, using tools such as Google
-        Search Console, GA4 and Data Studio to turn data into actionable insights.
-      </p>
-      <p class="quote">
-        My goal is to connect what people search for, what a website offers and how effectively
-        search engines can discover and understand it.
-      </p>
+      <p class="body">{a.close1}</p>
+      <p class="quote">{a.close2}</p>
     </div>
   </div>
 </section>

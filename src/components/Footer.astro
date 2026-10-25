@@ -1,28 +1,30 @@
 ---
 import { SITE } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/utils';
 
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <div class="wrap footer__inner">
-    <span>© {year} {SITE.name} · {SITE.jobTitle}</span>
+    <span>© {year} {SITE.name} · {t.footer.role}</span>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: var(--ink);
-    color: var(--line-strong);
-    border-top: 1px solid var(--line-dark);
+    border-top: 1px solid var(--line);
   }
 
   .footer__inner {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px;
-    padding-block: 28px;
+    align-items: center;
+    height: 64px;
+    font-family: var(--font-mono);
     font-size: 13px;
+    color: var(--text-subtle);
   }
 </style>

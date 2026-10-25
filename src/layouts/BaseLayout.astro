@@ -4,14 +4,20 @@ import '@fontsource-variable/space-grotesk';
 import '@fontsource-variable/roboto-mono';
 import '../styles/global.css';
 import { SITE } from '../data/site';
+import { langPaths, locales, type Lang } from '../i18n/utils';
 
 interface Props {
   title?: string;
   description?: string;
+  lang: Lang;
 }
 
-const { title = SITE.title, description = SITE.description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const { title, description, lang } = Astro.props;
+
+const pageTitle = title ?? SITE.title[lang];
+const pageDesc = description ?? SITE.description[lang];
+const siteUrl = Astro.site?.href ?? SITE.url;
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -21,8 +27,8 @@ const structuredData = {
       '@id': `${SITE.url}/#person`,
       name: SITE.name,
       url: SITE.url,
-      jobTitle: SITE.jobTitle,
-      description: SITE.description,
+      jobTitle: SITE.jobTitle[lang],
+      description: SITE.description[lang],
       sameAs: [SITE.linkedin],
     },
     {
@@ -31,36 +37,47 @@ const structuredData = {
       url: SITE.url,
       name: SITE.name,
       publisher: { '@id': `${SITE.url}/#person` },
-      inLanguage: 'en',
+      inLanguage: lang,
     },
   ],
 };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#F4F4F1" />
 
+    <!-- hreflang: signal to Google which page serves which language -->
+    {locales.map((l) => (
+      <link
+        rel="alternate"
+        hreflang={l}
+        href={new URL(langPaths[l], siteUrl).href}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl).href} />
+
     <meta property="og:type" content="profile" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={lang === 'ca' ? 'ca_ES' : lang === 'es' ? 'es_ES' : 'en_US'} />
     <meta name="twitter:card" content="summary" />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{lang === 'ca' ? 'Anar al contingut principal' : lang === 'es' ? 'Ir al contenido principal' : 'Skip to content'}</a>
     <slot />
   </body>
 </html>

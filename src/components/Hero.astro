@@ -1,5 +1,10 @@
 ---
 import { SITE } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 const domain = SITE.url.replace(/^https?:\/\//, '');
 ---
@@ -7,31 +12,28 @@ const domain = SITE.url.replace(/^https?:\/\//, '');
 <section aria-labelledby="hero-title">
   <div class="wrap hero">
     <div class="hero__text">
-      <p class="eyebrow">Independent thinking. Technical understanding.</p>
+      <p class="eyebrow">{t.hero.eyebrow}</p>
       <h1 id="hero-title" class="hero__title">
-        <span class="hero__name">Laia Xarau</span>{' '}
-        <span class="hero__role">SEO Consultant — Technical SEO &amp; Strategy</span>
+        <span class="hero__name">{SITE.name}</span>{' '}
+        <span class="hero__role">{t.hero.role}</span>
       </h1>
       <p class="hero__claim">
-        Search is complex.<br />
-        <span class="accent">Understanding it is my job.</span>
+        {t.hero.claimLine1}<br />
+        <span class="accent">{t.hero.claimAccent}</span>
       </p>
-      <p class="hero__intro">
-        I combine technical SEO, data analysis and a developer's perspective to help websites
-        improve their organic visibility and connect with the right audiences.
-      </p>
+      <p class="hero__intro">{t.hero.intro}</p>
       <div class="btn-row">
         <a href="#work" class="btn btn--primary">
-          Explore my work
+          {t.hero.ctaPrimary}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
         </a>
-        <a href="#contact" class="btn btn--ghost">Get in touch</a>
+        <a href="#contact" class="btn btn--ghost">{t.hero.ctaSecondary}</a>
       </div>
     </div>
 
-    <figure class="preview" aria-label="How this page presents itself in search results and structured data">
+    <figure class="preview" aria-label={t.a11y.heroPreviewAlt}>
       <div class="preview__bar">
-        <span>SEARCH RESULT PREVIEW</span>
+        <span>{t.hero.previewBar}</span>
         <span aria-hidden="true">01 / 03</span>
       </div>
       <div class="preview__serp">
@@ -42,14 +44,14 @@ const domain = SITE.url.replace(/^https?:\/\//, '');
             <span class="preview__url">https://{domain}</span>
           </span>
         </div>
-        <p class="preview__title">{SITE.title}</p>
-        <p class="preview__desc">{SITE.description}</p>
+        <p class="preview__title">{SITE.title[lang]}</p>
+        <p class="preview__desc">{SITE.description[lang]}</p>
       </div>
       <pre class="preview__code"><span class="c">&lt;script type="application/ld+json"&gt;</span>
 {'{'}
   <span class="k">"@type"</span>: "Person",
   <span class="k">"name"</span>: "{SITE.name}",
-  <span class="k">"jobTitle"</span>: "{SITE.jobTitle}",
+  <span class="k">"jobTitle"</span>: "{SITE.jobTitle[lang]}",
   <span class="k">"sameAs"</span>: ["LinkedIn"]
 {'}'}
 <span class="c">&lt;/script&gt;</span></pre>

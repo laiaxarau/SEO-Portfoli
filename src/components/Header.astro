@@ -1,25 +1,46 @@
 ---
 import Logo from './Logo.astro';
+import { useTranslations, langPaths, langLabels, locales, type Lang } from '../i18n/utils';
 
-const links = [
-  { href: '#services', label: 'Services' },
-  { href: '#work', label: 'Work' },
-  { href: '#approach', label: 'Approach' },
-  { href: '#toolkit', label: 'Toolkit' },
-  { href: '#about', label: 'About' },
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const navLinks = [
+  { href: '#services', label: t.header.nav.services },
+  { href: '#work',     label: t.header.nav.work },
+  { href: '#approach', label: t.header.nav.approach },
+  { href: '#toolkit',  label: t.header.nav.toolkit },
+  { href: '#about',    label: t.header.nav.about },
 ];
 ---
 
 <header class="header">
   <div class="wrap header__inner">
     <div class="brand">
-      <Logo />
-      <span class="brand__tag">SEO · TECHNOLOGY · STRATEGY</span>
+      <Logo lang={lang} />
+      <span class="brand__tag">{t.header.tagline}</span>
     </div>
+
     <nav aria-label="Main" class="nav">
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
-    <a href="#contact" class="btn btn--primary btn--small">Get in touch</a>
+
+    <div class="header__actions">
+      <nav class="lang-switcher" aria-label={t.header.langLabel}>
+        {locales.map((l) => (
+          <a
+            href={langPaths[l]}
+            aria-current={l === lang ? 'page' : undefined}
+            class:list={['lang-switcher__link', { 'lang-switcher__link--active': l === lang }]}
+            hreflang={l}
+          >
+            {langLabels[l]}
+          </a>
+        ))}
+      </nav>
+      <a href="#contact" class="btn btn--primary btn--small">{t.header.cta}</a>
+    </div>
   </div>
 </header>
 
@@ -59,9 +80,47 @@ const links = [
     text-decoration: none;
   }
 
-  @media (max-width: 720px) {
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  .lang-switcher__link {
+    padding: 4px 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-subtle);
+    transition: color 0.15s;
+  }
+
+  .lang-switcher__link:hover {
+    color: var(--ink);
+  }
+
+  .lang-switcher__link--active {
+    color: var(--ink);
+    background: var(--surface);
+  }
+
+  @media (max-width: 900px) {
     .nav,
     .brand__tag {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .lang-switcher {
       display: none;
     }
   }

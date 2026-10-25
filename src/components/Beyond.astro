@@ -1,19 +1,21 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const b = t.beyond;
+---
+
 <section class="beyond" aria-labelledby="beyond-title">
   <div class="wrap section split">
     <div class="stack">
-      <p class="eyebrow"><span aria-hidden="true">07 / </span>Beyond</p>
-      <h2 id="beyond-title" class="h2">Beyond the job title</h2>
+      <p class="eyebrow"><span aria-hidden="true">07 / </span>{b.eyebrow}</p>
+      <h2 id="beyond-title" class="h2">{b.title}</h2>
     </div>
     <div class="beyond__text">
-      <p class="body">
-        I'm curious about the intersection of search, technology and the way people use the web. I
-        enjoy understanding how things work, testing ideas and building projects that turn a
-        thought into something tangible.
-      </p>
-      <p class="quote">
-        For me, learning is not separate from doing. It's part of how I approach both professional
-        challenges and personal projects.
-      </p>
+      <p class="body">{b.p}</p>
+      <p class="quote">{b.quote}</p>
     </div>
   </div>
 </section>

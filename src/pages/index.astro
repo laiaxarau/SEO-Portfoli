@@ -11,22 +11,24 @@ import Journey from '../components/Journey.astro';
 import Beyond from '../components/Beyond.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+
+const lang = 'ca' as const;
 ---
 
-<BaseLayout>
+<BaseLayout lang={lang}>
   <div id="top">
-    <Header />
+    <Header lang={lang} />
     <main id="main">
-      <Hero />
-      <Services />
-      <SelectedWork />
-      <Approach />
-      <Toolkit />
-      <About />
-      <Journey />
-      <Beyond />
-      <Contact />
+      <Hero lang={lang} />
+      <Services lang={lang} />
+      <SelectedWork lang={lang} />
+      <Approach lang={lang} />
+      <Toolkit lang={lang} />
+      <About lang={lang} />
+      <Journey lang={lang} />
+      <Beyond lang={lang} />
+      <Contact lang={lang} />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </div>
 </BaseLayout>

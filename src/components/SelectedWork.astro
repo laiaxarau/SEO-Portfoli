@@ -1,68 +1,35 @@
 ---
 import { Image } from 'astro:assets';
 import { SITE } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/utils';
 import seoAmbTalonsImg from '../assets/projects/seo-amb-talons.png';
 import madridImg from '../assets/projects/madrid.png';
 import frontendPortfolioImg from '../assets/projects/frontend-portfolio.jpg';
 
-// Audit phases for the terminal visual: the process only, no metrics.
-const auditSteps = [
-  { name: 'crawling', note: 'how bots discover the site' },
-  { name: 'indexing', note: 'what search engines keep' },
-  { name: 'architecture', note: 'how pages connect' },
-  { name: 'structured data', note: 'what machines understand' },
-  { name: 'search intent', note: 'what people look for' },
-  { name: 'content', note: 'what the site offers' },
-  { name: 'measurement', note: 'GSC · GA4 · Data Studio' },
-];
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const w = t.work;
 
-const projects = [
-  {
-    meta: 'Independent project · SEO for women',
-    title: 'SEO amb Talons',
-    text: 'An independent initiative focused on helping women improve their online visibility through a technical, strategic and feminist approach to SEO. SEO amb Talons brings my professional knowledge into a project with its own identity, audience and purpose.',
-    link: { href: SITE.links.seoAmbTalons, label: 'Visit SEO amb Talons' },
-    image: seoAmbTalonsImg,
-    alt: 'SEO amb Talons homepage: "Posiciona el teu negoci sense perdre el teu estil", SEO for women entrepreneurs',
-  },
-  {
-    meta: 'Personal project · Astro · HTML · CSS · JavaScript',
-    title: 'Madrid: a city guide turned into a game',
-    text: 'A playful, interactive travel guide created as a surprise for a four-day trip to Madrid. Built with web technologies and AI-assisted development, the project turns trip planning into a more personal experience. It brings together creativity, user experience and my interest in building useful digital products.',
-    link: { href: SITE.links.madrid, label: 'Explore Madrid' },
-    image: madridImg,
-    alt: 'Madrid travel game cover: "Tria la teva aventura", 5–8 November, with the Madrid skyline',
-  },
-  {
-    meta: 'Personal project · Astro · Tailwind CSS · JavaScript',
-    title: 'Front-end portfolio',
-    text: 'My first portfolio as a front-end developer. It gathers the projects that started my path into code, from a WordPress site for a non-profit organization to an Astro site powered by the SpaceX API. The content is loaded from a JSON file, so the site is easy to update.',
-    link: { href: SITE.links.frontendPortfolio, label: 'Visit the portfolio' },
-    image: frontendPortfolioImg,
-    alt: 'Front-end portfolio homepage with the LAIA XARAU logo and project previews for a WordPress site and a SpaceX API site',
-  },
-];
+const projectImages = [seoAmbTalonsImg, madridImg, frontendPortfolioImg];
+const projectLinks = [SITE.links.seoAmbTalons, SITE.links.madrid, SITE.links.frontendPortfolio];
 ---
 
 <section id="work" aria-labelledby="work-title">
   <div class="wrap section work">
     <div class="stack section-head">
-      <p class="eyebrow"><span aria-hidden="true">02 / </span>Selected work</p>
-      <h2 id="work-title" class="h2">Selected SEO and web projects</h2>
+      <p class="eyebrow"><span aria-hidden="true">02 / </span>{w.eyebrow}</p>
+      <h2 id="work-title" class="h2">{w.title}</h2>
     </div>
 
     <article class="card featured">
       <div class="featured__text">
-        <p class="card__meta">Technical SEO · Strategy · Organic growth</p>
-        <h3 class="featured__title">SEO consulting</h3>
-        <p class="card__text">
-          My professional work brings together technical investigation, content strategy and
-          performance analysis. I focus on understanding the reasons behind search performance and
-          identifying practical opportunities to improve it.
-        </p>
-        <p class="featured__note">Professional experience at an SEO agency.</p>
+        <p class="card__meta">{w.featured.meta}</p>
+        <h3 class="featured__title">{w.featured.title}</h3>
+        <p class="card__text">{w.featured.text}</p>
+        <p class="featured__note">{w.featured.note}</p>
       </div>
-      <figure class="featured__visual terminal" aria-label="An SEO audit shown as a terminal log: crawling, indexing, architecture, structured data, search intent, content and measurement">
+      <figure class="featured__visual terminal" aria-label={t.a11y.terminalAlt}>
         <div class="terminal__bar" aria-hidden="true">
           <span class="terminal__dot"></span>
           <span class="terminal__dot"></span>
@@ -73,7 +40,7 @@ const projects = [
           <p class="terminal__cmd"><span class="terminal__prompt">$</span> seo-audit --site client.com</p>
           <ul class="terminal__log">
             {
-              auditSteps.map((step) => (
+              w.auditSteps.map((step) => (
                 <li>
                   <span class="terminal__check">✓</span>
                   <span class="terminal__step">{step.name}</span>
@@ -83,7 +50,7 @@ const projects = [
             }
           </ul>
           <p class="terminal__result">
-            <span class="terminal__arrow">→</span> opportunities identified · ready to implement<span class="terminal__cursor"></span>
+            <span class="terminal__arrow">→</span> {w.terminalResult}<span class="terminal__cursor"></span>
           </p>
         </div>
       </figure>
@@ -91,10 +58,10 @@ const projects = [
 
     <div class="projects">
       {
-        projects.map((project) => (
+        w.projects.map((project, i) => (
           <article class="card project">
             <Image
-              src={project.image}
+              src={projectImages[i]}
               alt={project.alt}
               widths={[400, 640, 800]}
               sizes="(max-width: 720px) 100vw, 400px"
@@ -104,8 +71,8 @@ const projects = [
               <p class="card__meta">{project.meta}</p>
               <h3 class="h3">{project.title}</h3>
               <p class="card__text project__text">{project.text}</p>
-              <a href={project.link.href} class="card__link">
-                {project.link.label}
+              <a href={projectLinks[i]} class="card__link">
+                {project.linkLabel}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </a>
             </div>
@@ -254,7 +221,7 @@ const projects = [
 
   .terminal__log li {
     display: grid;
-    grid-template-columns: 18px 128px minmax(0, 1fr);
+    grid-template-columns: 18px 160px minmax(0, 1fr);
     gap: 8px;
   }
 
@@ -285,22 +252,17 @@ const projects = [
   }
 
   @keyframes blink {
-    50% {
-      opacity: 0;
-    }
+    50% { opacity: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .terminal__cursor {
-      animation: none;
-    }
+    .terminal__cursor { animation: none; }
   }
 
   @media (max-width: 480px) {
     .terminal__log li {
       grid-template-columns: 18px minmax(0, 1fr);
     }
-
     .terminal__note {
       grid-column: 2;
     }
