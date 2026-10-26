@@ -8,32 +8,37 @@ const t = useTranslations(lang);
 ---
 
 <a href="#top" class="logo" aria-label={t.a11y.logoBack}>
-  <span class="logo__first">Laia</span>
-  <span class="logo__last">Xarau</span>
+  <span class="logo__first">LAIA</span>
+  <span class="logo__last">XARAU</span>
 </a>
 
 <style>
   .logo {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    display: inline-flex;
+    align-items: stretch;
     text-decoration: none;
+    border: 1.5px solid var(--ink);
     line-height: 1;
+    flex-shrink: 0;
   }
 
-  .logo__first,
+  .logo__first {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--surface);
+    background: var(--ink);
+    padding: 8px 10px;
+  }
+
   .logo__last {
     font-family: var(--font-display);
-    font-weight: var(--display-weight);
-    font-size: 22px;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-
-  .logo__last {
-    font-size: 14px;
-    letter-spacing: 0.04em;
     font-weight: 400;
-    color: var(--text-subtle);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    background: transparent;
+    padding: 8px 10px;
   }
 </style>
