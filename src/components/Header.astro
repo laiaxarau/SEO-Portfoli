@@ -26,18 +26,22 @@ const navLinks = [
     </nav>
 
     <div class="header__actions">
-      <nav class="lang-switcher" aria-label={t.header.langLabel}>
-        {locales.map((l) => (
-          <a
-            href={langPaths[l]}
-            aria-current={l === lang ? 'page' : undefined}
-            class:list={['lang-switcher__link', { 'lang-switcher__link--active': l === lang }]}
-            hreflang={l}
-          >
-            {langLabels[l]}
-          </a>
-        ))}
-      </nav>
+      <div class="lang-switcher">
+        <select
+          class="lang-switcher__select"
+          aria-label={t.header.langLabel}
+          onchange="window.location.href = this.value"
+        >
+          {locales.map((l) => (
+            <option value={langPaths[l]} selected={l === lang}>
+              {langLabels[l]}
+            </option>
+          ))}
+        </select>
+        <svg class="lang-switcher__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <a href="#contact" class="btn btn--primary btn--small">{t.header.cta}</a>
     </div>
   </div>
@@ -86,34 +90,42 @@ const navLinks = [
   }
 
   .lang-switcher {
-    display: flex;
-    gap: 4px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .lang-switcher__select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 5px 26px 5px 10px;
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.06em;
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
   }
 
-  .lang-switcher__link {
-    padding: 4px 6px;
-    border-radius: 4px;
-    text-decoration: none;
+  .lang-switcher__select:hover,
+  .lang-switcher__select:focus {
+    border-color: var(--ink);
+  }
+
+  .lang-switcher__chevron {
+    position: absolute;
+    right: 8px;
+    pointer-events: none;
     color: var(--text-subtle);
-    transition: color 0.15s;
-  }
-
-  .lang-switcher__link:hover {
-    color: var(--ink);
-  }
-
-  .lang-switcher__link--active {
-    color: var(--ink);
-    background: var(--surface);
   }
 
   @media (max-width: 900px) {
-    .nav,
-    .brand__tag {
+    .nav {
       display: none;
     }
   }
