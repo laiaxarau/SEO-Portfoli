@@ -18,29 +18,23 @@ const t = useTranslations(lang);
 const tk = t.toolkit;
 
 // Tool logos are brand names — not translated.
-const toolGroups = [
-  {
-    tools: [
-      { name: 'Search Console', logo: searchConsole },
-      { name: 'GA4', logo: ga4 },
-      { name: 'Data Studio', logo: dataStudio },
-    ],
-  },
-  {
-    tools: [
-      { name: 'Screaming Frog', logo: screamingFrog },
-      { name: 'PageSpeed', logo: pagespeed },
-      { name: 'Schema.org', logo: schemaOrg },
-      { name: 'DevTools', logo: devtools },
-    ],
-  },
-  {
-    tools: [
-      { name: 'Semrush', logo: semrush },
-      { name: 'Ahrefs', logo: ahrefs },
-      { name: 'SE Ranking', logo: seRanking },
-    ],
-  },
+const logoGroups = [
+  [
+    { name: 'Search Console', logo: searchConsole },
+    { name: 'GA4', logo: ga4 },
+    { name: 'Looker Studio', logo: dataStudio },
+  ],
+  [
+    { name: 'Screaming Frog', logo: screamingFrog },
+    { name: 'PageSpeed Insights', logo: pagespeed },
+    { name: 'Chrome DevTools', logo: devtools },
+    { name: 'Schema Markup Validator', logo: schemaOrg },
+  ],
+  [
+    { name: 'Semrush', logo: semrush },
+    { name: 'Ahrefs', logo: ahrefs },
+    { name: 'SE Ranking', logo: seRanking },
+  ],
 ];
 ---
 
@@ -53,18 +47,25 @@ const toolGroups = [
     </div>
 
     <div>
-      {
-        tk.groups.map((group, i) => (
-          <div class="group">
-            <div class="group__head">
-              <p class="group__label">
-                <span aria-hidden="true">{group.num} / </span>
-                {group.label}
-              </p>
-              <h3 class="group__title">{group.title}</h3>
-            </div>
+      {tk.groups.map((group, i) => (
+        <div class="group">
+          <div class="group__head">
+            <p class="group__label">
+              <span aria-hidden="true">{group.num} / </span>
+              {group.label}
+            </p>
+            <h3 class="group__title">{group.title}</h3>
+          </div>
+
+          {'textItems' in group && group.textItems ? (
+            <ul class="text-tools">
+              {group.textItems.map((item) => (
+                <li class="text-tool">{item}</li>
+              ))}
+            </ul>
+          ) : (
             <ul class="tools">
-              {toolGroups[i].tools.map((tool) => (
+              {logoGroups[i].map((tool) => (
                 <li class="tool">
                   <span class="tool__icon" aria-hidden="true">
                     <Image src={tool.logo} alt="" width={160} class="tool__logo" />
@@ -73,9 +74,9 @@ const toolGroups = [
                 </li>
               ))}
             </ul>
-          </div>
-        ))
-      }
+          )}
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -96,7 +97,7 @@ const toolGroups = [
   .group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
     padding-block: 28px;
     border-bottom: 1px solid var(--line);
   }
@@ -125,6 +126,7 @@ const toolGroups = [
     font-size: 28px;
   }
 
+  /* Logo-based tool grid */
   .tools {
     margin: 0;
     padding: 0;
@@ -164,7 +166,7 @@ const toolGroups = [
   }
 
   .tool__name {
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
     color: var(--text-muted);
     transition: color 0.2s ease;
@@ -173,6 +175,39 @@ const toolGroups = [
   .tool:hover .tool__icon { transform: translateY(-3px); }
   .tool:hover .tool__logo { filter: none; opacity: 1; }
   .tool:hover .tool__name { color: var(--text); }
+
+  /* Text-based tool list (4th group) */
+  .text-tools {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .text-tool {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1;
+    color: var(--text-body);
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .text-tool::before {
+    content: '→';
+    color: var(--accent);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .text-tool:last-child {
+    border-bottom: none;
+  }
 
   @media (max-width: 720px) {
     .tools {

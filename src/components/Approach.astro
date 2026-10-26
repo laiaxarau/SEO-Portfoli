@@ -11,40 +11,26 @@ const a = t.approach;
   <div class="wrap section approach">
     <div class="split">
       <div class="stack">
-        <p class="eyebrow"><span aria-hidden="true">03 / </span>{a.eyebrow}</p>
+        <p class="eyebrow"><span aria-hidden="true">02 / </span>{a.eyebrow}</p>
         <h2 id="approach-title" class="h2">{a.title}</h2>
       </div>
-      <div class="approach__intro">
-        <p class="lead-display">
-          {a.leadLine1}{' '}
-          <span class="accent">{a.leadAccent}</span>
-        </p>
-        <p class="body">{a.body}</p>
-      </div>
+      <p class="body approach__intro">{a.intro}</p>
     </div>
 
-    <div class="perspectives">
-      <div class="perspective">
-        <p class="perspective__label">{a.perspective1Label}<span aria-hidden="true"> 01</span></p>
-        <h3 class="h3">{a.perspective1Title}</h3>
-        <p class="perspective__text">{a.perspective1Text}</p>
-        <ul class="chips" aria-label={a.perspective1Title}>
-          {a.perspective1Chips.map((chip) => <li>{chip}</li>)}
-        </ul>
-      </div>
-      <div class="perspective perspective--dark">
-        <p class="perspective__label">{a.perspective2Label}<span aria-hidden="true"> 02</span></p>
-        <h3 class="h3">{a.perspective2Title}</h3>
-        <p class="perspective__text">{a.perspective2Text}</p>
-        <ul class="chips" aria-label={a.perspective2Title}>
-          {a.perspective2Chips.map((chip) => <li>{chip}</li>)}
-        </ul>
-      </div>
-    </div>
-
-    <div class="split approach__close">
-      <p class="body">{a.close1}</p>
-      <p class="quote">{a.close2}</p>
+    <div class="areas">
+      {a.areas.map((area) => (
+        <article class="area">
+          <header class="area__head">
+            <p class="area__num" aria-hidden="true">{area.num}</p>
+            <p class="area__label">{area.label}</p>
+          </header>
+          <h3 class="area__title">{area.title}</h3>
+          <p class="area__text">{area.text}</p>
+          <ul class="chips" aria-label={area.label}>
+            {area.chips.map((chip) => <li>{chip}</li>)}
+          </ul>
+        </article>
+      ))}
     </div>
   </div>
 </section>
@@ -61,63 +47,96 @@ const a = t.approach;
   }
 
   .approach__intro {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-self: end;
   }
 
-  .perspectives {
+  .areas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
 
-  .perspective {
+  .area {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
     padding: 32px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
+    transition: border-color 0.2s;
   }
 
-  .perspective__label {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--text-subtle);
+  .area:hover {
+    border-color: var(--ink);
   }
 
-  .perspective__text {
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-body);
-  }
-
-  .perspective--dark {
+  /* Alternate dark card for visual rhythm */
+  .area:nth-child(even) {
     background: var(--ink);
     border-color: var(--ink);
     color: var(--bg);
   }
 
-  .perspective--dark .perspective__label {
-    color: var(--line-strong);
+  .area__head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
   }
 
-  .perspective--dark .perspective__text {
+  .area__num {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 36px;
+    line-height: 1;
+    color: var(--line-strong);
+    user-select: none;
+  }
+
+  .area:nth-child(even) .area__num {
+    color: #3a3d42;
+  }
+
+  .area__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .area:nth-child(even) .area__label {
+    color: var(--accent-light);
+  }
+
+  .area__title {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .area__text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-body);
+    flex-grow: 1;
+  }
+
+  .area:nth-child(even) .area__text {
     color: var(--line);
   }
 
-  .perspective--dark .chips li {
+  .area:nth-child(even) .chips li {
     background: transparent;
-    border-color: var(--line-dark);
+    border-color: #3a3d42;
+    color: var(--line);
   }
 
-  .approach__close {
-    padding-top: 40px;
-    border-top: 1px solid var(--line);
+  @media (max-width: 720px) {
+    .areas {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

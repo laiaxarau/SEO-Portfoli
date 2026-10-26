@@ -1,37 +1,31 @@
 // Central place for identity data — keep name, links and per-language metadata
 // consistent across the page, the <head> and the structured data.
-// TODO: replace the placeholder values marked below before publishing.
 
 import type { Lang } from '../i18n/utils';
 
 export const SITE = {
-  url: 'https://example.com', // TODO: real domain (also update astro.config.mjs)
+  url: 'https://laiaxarau.com', // update astro.config.mjs to match
   name: 'Laia Xarau',
+  phone: '615084681',
+  email: 'laiaxarau@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/laiaxarau/',
+  seoAmbTalons: 'https://www.seoambtalons.cat',
 
   jobTitle: {
-    ca: 'Consultora SEO',
-    es: 'Consultora SEO',
-    en: 'SEO Consultant',
+    ca: 'Consultora SEO — SEO tècnic i Estratègia digital',
+    es: 'Consultora SEO — SEO técnico y Estrategia digital',
+    en: 'SEO Consultant — Technical SEO & Digital Strategy',
   } satisfies Record<Lang, string>,
 
   title: {
-    ca: 'Laia Xarau | Consultora SEO Tècnic',
-    es: 'Laia Xarau | Consultora SEO Técnico',
-    en: 'Laia Xarau | SEO Consultant & Technical SEO',
+    ca: 'Consultoria SEO Tècnica i Estratègia | Laia Xarau',
+    es: 'Consultoría SEO Técnica y Estrategia | Laia Xarau',
+    en: 'Technical SEO Consulting & Strategy | Laia Xarau',
   } satisfies Record<Lang, string>,
 
   description: {
-    ca: 'Consultora SEO especialitzada en SEO tècnic, amb perspectiva de desenvolupadora i orientació estratègica.',
-    es: 'Consultora SEO especializada en SEO técnico, con perspectiva de desarrolladora y orientación estratégica.',
-    en: 'SEO consultant with a technical background, a strategic mindset and a curiosity for how the web works.',
+    ca: 'Consultora SEO especialitzada en SEO tècnic, arquitectura web i migracions. Anàlisi, criteri i accions orientades al negoci.',
+    es: 'Consultora SEO especializada en SEO técnico, arquitectura web y migraciones. Análisis, criterio y acciones orientadas al negocio.',
+    en: 'SEO consultant specialising in technical SEO, web architecture and migrations. Analysis, judgement and business-oriented actions.',
   } satisfies Record<Lang, string>,
-
-  linkedin: 'https://www.linkedin.com/in/laiaxarau/',
-  email: 'TODO@example.com', // TODO: contact email
-
-  links: {
-    seoAmbTalons: 'https://seoambtalons.cat',
-    madrid: 'https://madrid.laiaxarau.com',
-    frontendPortfolio: 'https://frontend.laiaxarau.com',
-  },
 };

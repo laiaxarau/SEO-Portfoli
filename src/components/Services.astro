@@ -7,114 +7,45 @@ const t = useTranslations(lang);
 const s = t.services;
 ---
 
-<section id="services" class="services" aria-labelledby="services-title">
-  <div class="wrap section services__inner">
-    <div class="split">
-      <div class="stack">
-        <p class="eyebrow"><span aria-hidden="true">01 / </span>{s.eyebrow}</p>
-        <h2 id="services-title" class="h2">{s.title}</h2>
-      </div>
-      <p class="body services__intro">{s.intro}</p>
-    </div>
-
-    <div class="services__grid">
-      {
-        s.items.map((service) => (
-          <article class="service">
-            <h3 class="service__title">{service.title}</h3>
-            <p class="service__text">{service.text}</p>
-            <ul class="chips" aria-label="Areas of work">
-              {service.areas.map((area) => (
-                <li>{area}</li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
-    </div>
-
-    <a href="#contact" class="services__cta">
-      {s.cta}
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-    </a>
+<section class="interstitial" aria-labelledby="interstitial-title">
+  <div class="wrap section interstitial__inner">
+    <h2 id="interstitial-title" class="interstitial__title">{s.title}</h2>
+    <p class="body interstitial__body">{s.body}</p>
   </div>
 </section>
 
 <style>
-  .services {
+  .interstitial {
     background: var(--surface);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
 
-  .services__inner {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-  }
-
-  .services__intro {
-    align-self: end;
-  }
-
-  .services__grid {
+  .interstitial__inner {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+    padding-block: clamp(48px, 6vw, 80px);
   }
 
-  @media (max-width: 720px) {
-    .services__grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  .service {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 32px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    transition: border-color 0.2s;
-  }
-
-  .service:hover {
-    border-color: var(--accent);
-  }
-
-  .service__title {
+  .interstitial__title {
     font-family: var(--font-display);
     font-weight: var(--display-weight);
-    font-size: 24px;
+    font-size: clamp(24px, 2.6vw, 34px);
     line-height: 1.2;
   }
 
-  .service__text {
-    flex-grow: 1;
-    font-size: 16px;
-    line-height: 1.65;
+  .interstitial__body {
     color: var(--text-body);
+    font-size: 18px;
+    line-height: 1.65;
   }
 
-  .service .chips li {
-    background: var(--surface);
-  }
-
-  .services__cta {
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 44px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  .services__cta:hover {
-    color: var(--ink);
+  @media (max-width: 720px) {
+    .interstitial__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
+    }
   }
 </style>

@@ -5,10 +5,9 @@ import Hero from '../../components/Hero.astro';
 import Services from '../../components/Services.astro';
 import SelectedWork from '../../components/SelectedWork.astro';
 import Approach from '../../components/Approach.astro';
+import Journey from '../../components/Journey.astro';
 import Toolkit from '../../components/Toolkit.astro';
 import About from '../../components/About.astro';
-import Journey from '../../components/Journey.astro';
-import Beyond from '../../components/Beyond.astro';
 import Contact from '../../components/Contact.astro';
 import Footer from '../../components/Footer.astro';
 
@@ -20,13 +19,12 @@ const lang = 'es' as const;
     <Header lang={lang} />
     <main id="main">
       <Hero lang={lang} />
-      <Services lang={lang} />
       <SelectedWork lang={lang} />
+      <Services lang={lang} />
       <Approach lang={lang} />
+      <Journey lang={lang} />
       <Toolkit lang={lang} />
       <About lang={lang} />
-      <Journey lang={lang} />
-      <Beyond lang={lang} />
       <Contact lang={lang} />
     </main>
     <Footer lang={lang} />
