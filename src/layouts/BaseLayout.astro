@@ -74,6 +74,20 @@ const structuredData = {
     <meta property="og:locale" content={lang === 'ca' ? 'ca_ES' : lang === 'es' ? 'es_ES' : 'en_US'} />
     <meta name="twitter:card" content="summary" />
 
+    <!-- Google Search Console ownership verification -->
+    <!-- TODO: substituir pel meta tag de verificació de GSC de la propietat laiaxarau.com -->
+    <!-- <meta name="google-site-verification" content="POSA_AQUI_EL_TOKEN_GSC" /> -->
+
+    <!-- Google Analytics 4 — mateix measurement ID que frontend.laiaxarau.com -->
+    <!-- TODO: substituir G-XXXXXXXXXX pel Measurement ID real de GA4 -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script> -->
+
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
