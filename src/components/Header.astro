@@ -64,6 +64,22 @@ const navLinks = [
       ))}
     </nav>
     <div class="mobile-menu__footer">
+      <div class="lang-switcher lang-switcher--mobile">
+        <select
+          class="lang-switcher__select"
+          aria-label={t.header.langLabel}
+          onchange="window.location.href = this.value"
+        >
+          {locales.map((l) => (
+            <option value={langPaths[l]} selected={l === lang}>
+              {langLabels[l]}
+            </option>
+          ))}
+        </select>
+        <svg class="lang-switcher__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <a href="#contact" class="btn btn--primary btn--small">{t.header.cta}</a>
     </div>
   </div>
@@ -274,7 +290,15 @@ const navLinks = [
   }
 
   .mobile-menu__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding-top: 20px;
+    gap: 16px;
+  }
+
+  .lang-switcher--mobile {
+    display: none;
   }
 
   /* Breakpoints */
@@ -287,13 +311,21 @@ const navLinks = [
       display: none;
     }
 
+    /* Amagar lang-switcher de la barra; el mòbil el té dins el menú */
+    .header__actions .lang-switcher:not(.lang-switcher--mobile) {
+      display: none;
+    }
+
     .hamburger {
       display: flex;
     }
 
     .mobile-menu {
       display: block;
-      /* Necesita posició relativa al header */
+    }
+
+    .lang-switcher--mobile {
+      display: inline-flex;
     }
 
     .header {
