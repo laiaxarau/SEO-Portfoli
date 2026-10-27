@@ -1,16 +1,33 @@
 ---
 import { SITE } from '../data/site';
 import { useTranslations, type Lang } from '../i18n/utils';
+import Icon from './icons/Icon.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+
+const socialMedia = [
+  { name: 'github', href: 'https://github.com/laiaxarau', label: 'GitHub' },
+  { name: 'linkedin', href: SITE.linkedin, label: 'LinkedIn' },
+  { name: 'gmail', href: `mailto:${SITE.email}`, label: 'Email' },
+  { name: 'laiaxarau2', href: 'https://laiaxarau.com', label: 'Laia Xarau' },
+];
 ---
 
 <footer class="footer">
   <div class="wrap footer__inner">
     <span>© {year} {SITE.name} · {t.footer.role}</span>
+    <ul class="footer__social">
+      {socialMedia.map((media) => (
+        <li>
+          <a href={media.href} target="_blank" rel="noopener noreferrer" aria-label={media.label}>
+            <Icon customClass="footer__icon" name={media.name} />
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
 </footer>
 
@@ -22,9 +39,34 @@ const year = new Date().getFullYear();
   .footer__inner {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 64px;
     font-family: var(--font-mono);
     font-size: 13px;
     color: var(--text-subtle);
+  }
+
+  .footer__social {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer__social a {
+    display: flex;
+    align-items: center;
+    color: var(--text-subtle);
+    transition: color 0.2s;
+  }
+
+  .footer__social a:hover {
+    color: var(--text);
+  }
+
+  :global(.footer__icon) {
+    fill: currentColor;
   }
 </style>
