@@ -42,14 +42,84 @@ const navLinks = [
           <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
+      <a href="#contact" class="btn btn--primary btn--small header__cta">{t.header.cta}</a>
+
+      <button
+        class="hamburger"
+        aria-label="Obrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <nav class="mobile-menu__nav">
+      {navLinks.map((link) => (
+        <a href={link.href} class="mobile-menu__link">{link.label}</a>
+      ))}
+    </nav>
+    <div class="mobile-menu__footer">
       <a href="#contact" class="btn btn--primary btn--small">{t.header.cta}</a>
     </div>
   </div>
 </header>
 
+<script>
+  const btn = document.querySelector('.hamburger') as HTMLButtonElement;
+  const menu = document.getElementById('mobile-menu') as HTMLElement;
+
+  function openMenu() {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.setAttribute('aria-label', 'Tancar menú');
+    menu.setAttribute('aria-hidden', 'false');
+    menu.classList.add('is-open');
+    btn.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Obrir menú');
+    menu.setAttribute('aria-hidden', 'true');
+    menu.classList.remove('is-open');
+    btn.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  // Tanca en clicar un link del menú mòbil
+  menu.querySelectorAll('.mobile-menu__link, .btn').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Tanca en clicar fora
+  document.addEventListener('click', (e) => {
+    const header = document.querySelector('.header') as HTMLElement;
+    if (!header.contains(e.target as Node)) closeMenu();
+  });
+
+  // Tanca en redimensionar a desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
+  });
+</script>
+
 <style>
   .header {
     border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
   }
 
   .header__inner {
@@ -89,6 +159,7 @@ const navLinks = [
     gap: 20px;
   }
 
+  /* Lang switcher */
   .lang-switcher {
     position: relative;
     display: inline-flex;
@@ -124,15 +195,116 @@ const navLinks = [
     color: var(--text-subtle);
   }
 
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+
+  .hamburger:hover {
+    background: var(--surface, rgba(0,0,0,0.05));
+  }
+
+  .hamburger__bar {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--ink);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* Animació X quan obert */
+  .hamburger.is-open .hamburger__bar:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .hamburger.is-open .hamburger__bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.is-open .hamburger__bar:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* Menú mòbil */
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .mobile-menu.is-open {
+    max-height: 500px;
+    padding: 16px 0 24px;
+  }
+
+  .mobile-menu__nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-menu__link {
+    padding: 14px 0;
+    font-size: 17px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    transition: color 0.15s;
+  }
+
+  .mobile-menu__link:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu__footer {
+    padding-top: 20px;
+  }
+
+  /* Breakpoints */
   @media (max-width: 900px) {
     .nav {
       display: none;
     }
+
+    .header__cta {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .mobile-menu {
+      display: block;
+      /* Necesita posició relativa al header */
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+    }
   }
 
-  @media (max-width: 480px) {
-    .header__actions .btn {
-      display: none;
+  @media (min-width: 901px) {
+    .mobile-menu {
+      display: none !important;
     }
   }
 </style>
